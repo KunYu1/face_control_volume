@@ -1,5 +1,4 @@
 import cv2
-from retinaface import RetinaFace
 import numpy as np
 import pygame
 
