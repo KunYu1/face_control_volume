@@ -2,24 +2,31 @@ import cv2
 import numpy as np
 import pygame
 
+##set windows size
 height = 480
 width = 640
+
 faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eyeCascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 #eyeCascade = cv2.CascadeClassifier('haarcascade_eye_tree_eyeglasses.xml')
+
+#set camera
 cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 cam.set(3,width)
 cam.set(4,height)
+
+#music play
 pygame.init()
 pygame.mixer.init()
-sound = pygame.mixer.Sound("see_you_again.mp3")
+sound = pygame.mixer.Sound("test.mp3")
 volume = 50
 sound.set_volume(volume/100)
 sound.play()
+
+#stream
 while True:
     ret, img = cam.read()
     img = cv2.flip(img, 1)
-    #faces = RetinaFace.detect_faces(img)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     faces = faceCascade.detectMultiScale(
         gray,
@@ -28,7 +35,7 @@ while True:
         minSize=(100,100)
     )
     sum = 0
-    eye_sum = 0;
+    eye_sum = 0
     num = 0
     for (x,y,w,h) in faces:
         #print("face: {} {} {} {}".format(x,y,w,h))
@@ -49,8 +56,7 @@ while True:
                 sum = sum + ey + y
                 eye_sum = eye_sum + eh
                 #cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
-                cv2.circle(roi_color, (ex + ew//2, ey + eh//2), 5, (0, 0, 255), -1)
-        #print(eyes)
+                cv2.circle(roi_color, (ex + ew//2, ey + eh//2), 5, (0, 0, 255), -1) 
     if(num != 0):
         eye_height = sum/num
         #cv2.putText(img, "eye height: {}".format(eye_height), (10, 80), cv2.FONT_HERSHEY_SIMPLEX,  1, (0, 0, 255), 1, cv2.LINE_AA)
