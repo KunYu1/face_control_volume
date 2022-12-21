@@ -13,4 +13,7 @@ pip install opencv-python
 ```
 
 # demo vedio
+## 1st version
 https://youtu.be/WBDPDXjIm1s
+## 2ed version (timer)
+https://youtu.be/3HUJvNdrw4A
